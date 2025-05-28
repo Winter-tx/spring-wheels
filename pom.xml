@@ -16,6 +16,11 @@
     <groupId>com.winter</groupId>
     <artifactId>spring-wheels</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>aop-log</module>
+    </modules>
 
 
     <properties>
