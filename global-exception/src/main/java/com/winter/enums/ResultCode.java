@@ -14,7 +14,7 @@ public enum ResultCode {
 
     SUCCESS(200, "success"),
     PARAM_ERROR(400, "请求参数错误"),
-    SERVICE_ERROR(500, "服务器错误");
+    SERVER_ERROR(500, "服务器错误");
 
 
     /**

@@ -55,6 +55,11 @@ public class UserController {
     @GetMapping("/info/void/{id}")
     public ResponseResult<Void> infoVoid(Long id) {
         userService.infoVoid(id);
+        /*
+         对于返回void的方法:
+            1.使用ResponseResult.success()时, data赋值为null;
+            2. 使用ResponseBodyAdvice时, 同样会将data处理为null
+         */
         return ResponseResult.success(null);
     }
 
@@ -69,7 +74,7 @@ public class UserController {
     @PostMapping("/update")
     public ResponseResult<User> update(@RequestBody User user) {
         User update = userService.update(user);
-        return ResponseResult.error(ResultCode.SERVICE_ERROR.getCode(), ResultCode.SERVICE_ERROR.getMessage());
+        return ResponseResult.error(ResultCode.SERVER_ERROR.getCode(), ResultCode.SERVER_ERROR.getMessage());
     }
 
 
@@ -113,6 +118,27 @@ public class UserController {
     @GetMapping(value = "/name")
     public String userName() {
         return "winter";
+    }
+
+
+// ------------------------------ 全局异常捕获 -------------------------------------------------
+
+
+    /**
+     * 全局异常捕获
+     *
+     * @return User对象集合
+     */
+    @GetMapping(value = "/ex/list/advice")
+    public List<User> exListAdvice() {
+        List<User> list = new ArrayList<>();
+        list.add(User.builder().id(1L).name("张三").age(1).build());
+        list.add(User.builder().id(1L).name("李四").age(1).build());
+
+        // 异常测试
+        list.get(2);
+
+        return list;
     }
 
 
