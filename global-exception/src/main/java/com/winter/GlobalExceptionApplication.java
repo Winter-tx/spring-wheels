@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 /**
- * 全局响应结果统一处理, 全局异常处理
+ * 全局响应结果统一处理与全局异常处理
  *
  * @author zhutengxun
  * @since 2025/5/29

@@ -2,6 +2,7 @@ package com.winter.controller;
 
 
 import com.winter.enums.ResultCode;
+import com.winter.exception.BusinessException;
 import com.winter.pojo.User;
 import com.winter.response.ResponseResult;
 import com.winter.service.IUserService;
@@ -137,6 +138,40 @@ public class UserController {
 
         // 异常测试
         list.get(2);
+
+        return list;
+    }
+
+    /**
+     * 全局异常捕获-自定义异常
+     *
+     * @return User对象集合
+     */
+    @GetMapping(value = "/ex/business")
+    public List<User> exBusiness() {
+        List<User> list = new ArrayList<>();
+
+        // 自定义异常
+        if (true) {
+            throw new BusinessException(ResultCode.SERVICE_UNAVAILABLE_ERROR.getCode(), ResultCode.SERVICE_UNAVAILABLE_ERROR.getMessage());
+        }
+
+        return list;
+    }
+
+
+    /**
+     * 全局异常捕获-约定异常编码
+     *
+     * @return User对象集合
+     */
+    @GetMapping(value = "/ex/agree")
+    public List<User> exAgree() {
+        List<User> list = new ArrayList<>();
+
+        // 空指针异常(约定异常编码:)
+        list = null;
+        list.get(0);
 
         return list;
     }

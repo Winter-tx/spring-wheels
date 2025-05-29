@@ -1,6 +1,7 @@
 package com.winter.handler;
 
 import com.winter.enums.ResultCode;
+import com.winter.exception.BusinessException;
 import com.winter.response.ResponseResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,6 +36,31 @@ public class ExceptionAdvice {
     public ResponseResult<String> exceptionHandler(Exception ex) {
         //  return ResponseResult.error(ResultCode.SERVER_ERROR.getCode(), ex.getMessage());
         return ResponseResult.error(ResultCode.SERVER_ERROR.getCode(), ex.toString());
+    }
+
+
+    /**
+     * 处理自定义异常
+     *
+     * @param e BusinessException
+     * @return 全局统一响应对象
+     */
+    @ExceptionHandler(BusinessException.class)
+    public ResponseResult<String> businessException(BusinessException e) {
+        return ResponseResult.error(e.getCode(), e.getMessage());
+    }
+
+
+    /**
+     * 处理空指针的异常
+     * 对空指针约定一个异常编码与异常信息: ResultCode.PARAM_ERROR
+     *
+     * @param e NullPointerException
+     * @return 全局统一响应对象
+     */
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseResult<String> nullPointerException(NullPointerException e) {
+        return ResponseResult.error(ResultCode.PARAM_ERROR.getCode(), ResultCode.PARAM_ERROR.getMessage());
     }
 
 
