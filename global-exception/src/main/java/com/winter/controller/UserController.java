@@ -28,6 +28,9 @@ public class UserController {
     private final IUserService userService;
 
 
+// ------------------------------ 通过ResponseResult方法处理为统一响应对象 -------------------------------------------------
+
+
     /**
      * success
      * 通过ResponseResult方法处理为统一响应对象
@@ -83,6 +86,33 @@ public class UserController {
         list.add(User.builder().id(1L).name("李四").age(1).build());
 
         return ResponseResult.success(list);
+    }
+
+
+// ------------------------------ 通过ResponseBodyAdvice拦截controller方法的返回值 -------------------------------------------------
+
+    /**
+     * 通过ResponseBodyAdvice拦截controller方法的返回值
+     *
+     * @return User对象集合
+     */
+    @GetMapping(value = "/list/advice")
+    public List<User> listAdvice() {
+        List<User> list = new ArrayList<>();
+        list.add(User.builder().id(1L).name("张三").age(1).build());
+        list.add(User.builder().id(1L).name("李四").age(1).build());
+
+        return list;
+    }
+
+    /**
+     * 通过ResponseBodyAdvice拦截controller方法的返回值
+     *
+     * @return User对象集合
+     */
+    @GetMapping(value = "/name")
+    public String userName() {
+        return "winter";
     }
 
 
